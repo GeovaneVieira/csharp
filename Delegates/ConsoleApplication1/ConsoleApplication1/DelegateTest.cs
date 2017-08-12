@@ -16,13 +16,24 @@ namespace ConsoleApplication1
             return string.Format("{0}: {1}", name, i);
         }
 
-        public string StaticMethod(int i)
+        static string StaticMethod(int i)
         {
             return string.Format("Static method: {0}", i);
         }
 
         static void Main(string[] args)
         {
+            FirstDelegate d1 = new FirstDelegate(DelegateTest.StaticMethod);
+            DelegateTest instance = new DelegateTest();
+            instance.name = "My instance";
+            FirstDelegate d2 = new FirstDelegate(instance.InstanceMethod);
+
+            Console.WriteLine(d1(10));
+            Console.WriteLine(d2(5));
+
+            Console.WriteLine(d1.Invoke(20));
+            Console.WriteLine(d2.Invoke(15));
+            Console.ReadLine();
 
         }
     }
